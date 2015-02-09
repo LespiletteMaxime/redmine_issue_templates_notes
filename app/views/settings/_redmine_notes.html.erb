@@ -4,10 +4,12 @@
 		hidden_button();
 	});
 	function hidden_button() {
-     $("#settings").find("input[type=submit]").css("display", "none");
+    // $("#settings").find("input[type=submit]").css("display", "none");
 	}
 </script>
 <!-- fim -->
+
+<h3>Listagem e Adição</h3>
 <table>
 	<tr>
 		<th></th>
@@ -26,3 +28,24 @@
 		</td>
 	</tr>
 </table>
+<br/>
+	<h3>Permissão de acesso</h3>
+	<table class="list groups">
+	  <thead><tr>
+		<th>Usuário</th>
+		<th>Permitir</th>
+		<th></th>
+	  </tr>
+	  </thead>
+	  <tbody>
+	  <%= form_for :user_auth do |f| %>
+		  <% User.where("firstname != ''",4).each do |user|%>
+			  <tr id="group-2" class="odd builtin">
+				<td><%= user.firstname %></td>
+				<% check_box_tag 'settings_user_auth[]', user.id, false, :id => user.id %>
+				<td><%= f.check_box(:user_auth,{:multiple => true},user.id) %></td>
+			  </tr>
+		  <% end %>
+	  <% end %>
+	  </tbody>
+	</table>
